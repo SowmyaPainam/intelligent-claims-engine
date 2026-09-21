@@ -1,0 +1,28 @@
+{
+  "name": "intelligent-claims-engine",
+  "version": "1.0.0",
+  "description": "Intelligent Enterprise Claims & Budget Governance Engine",
+  "main": "srv/server.js",
+  "scripts": {
+    "start": "cds run",
+    "dev": "cds watch",
+    "build": "cds build",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@sap/cds": "^7.0.0",
+    "@sap/cds-dk": "^7.0.0",
+    "express": "^4.18.0",
+    "axios": "^1.4.0",
+    "dotenv": "^16.0.0",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "mocha": "^10.0.0",
+    "chai": "^4.3.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

@@ -1,0 +1,21 @@
+_schema-version: '3.1'
+ID: intelligent-claims-engine
+version: 1.0.0
+description: Intelligent Enterprise Claims & Budget Governance Engine
+
+modules:
+  - name: intelligent-claims-backend
+    type: nodejs
+    path: .
+    requires:
+      - name: claims-db
+    provides:
+      - name: backend-service
+        public: true
+
+resources:
+  - name: claims-db
+    type: com.sap.xs.hana-securestore
+    parameters:
+      service: hana
+      service-plan: hdi-shared
