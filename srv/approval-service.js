@@ -5,7 +5,7 @@ const { v4: uuid } = require('uuid');
 
 module.exports = cds.service.impl(async (srv) => {
   const db = await cds.connect.to('db');
-  const { Approvals, Claims, Budgetss, AuditLog } = cds.entities('intelligent.claims');
+  const { Approvals, Claims, Budgets, AuditLog } = cds.entities('intelligent.claims');
 
   // Create Approval Workflow
   srv.on('CreateApprovalWorkflow', async (req) => {
