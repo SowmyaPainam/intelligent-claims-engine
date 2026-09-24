@@ -33,6 +33,10 @@ modules:
       - budgetstatus.zip
       name: budgetstatus
       target-path: resources/
+    - artifacts:
+      - auditviewer.zip
+      name: auditviewer
+      target-path: resources/
 - name: comcompanyclaimsdashboard
   type: html5
   path: app/claimsdashboard
@@ -56,6 +60,16 @@ modules:
 - name: budgetstatus
   type: html5
   path: app/budgetstatus
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: auditviewer
+  type: html5
+  path: app/auditviewer
   build-parameters:
     build-result: dist
     builder: custom
