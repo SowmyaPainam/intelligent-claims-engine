@@ -105,5 +105,12 @@ annotate service.Claims with @(
             Value : productName,
         },
     ],
+    UI.Identification : [
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'ClaimsService.EntityContainer/ProcessClaim',
+            Label : 'Process Claim',
+        },
+    ],
 );
 
