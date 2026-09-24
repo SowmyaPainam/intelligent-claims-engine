@@ -25,9 +25,23 @@ modules:
       - comcompanyclaimsdashboard.zip
       name: comcompanyclaimsdashboard
       target-path: resources/
+    - artifacts:
+      - approvalqueue.zip
+      name: approvalqueue
+      target-path: resources/
 - name: comcompanyclaimsdashboard
   type: html5
   path: app/claimsdashboard
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: approvalqueue
+  type: html5
+  path: app/approvalqueue
   build-parameters:
     build-result: dist
     builder: custom
