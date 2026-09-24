@@ -29,6 +29,10 @@ modules:
       - approvalqueue.zip
       name: approvalqueue
       target-path: resources/
+    - artifacts:
+      - budgetstatus.zip
+      name: budgetstatus
+      target-path: resources/
 - name: comcompanyclaimsdashboard
   type: html5
   path: app/claimsdashboard
@@ -42,6 +46,16 @@ modules:
 - name: approvalqueue
   type: html5
   path: app/approvalqueue
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: budgetstatus
+  type: html5
+  path: app/budgetstatus
   build-parameters:
     build-result: dist
     builder: custom
