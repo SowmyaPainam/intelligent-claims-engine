@@ -1,21 +1,70 @@
-_schema-version: '3.1'
+_schema-version: "3.1"
 ID: intelligent-claims-engine
-version: 1.0.0
 description: Intelligent Enterprise Claims & Budget Governance Engine
-
+version: 1.0.0
 modules:
-  - name: intelligent-claims-backend
-    type: nodejs
-    path: .
-    requires:
-      - name: claims-db
-    provides:
-      - name: backend-service
-        public: true
-
-resources:
+- name: intelligent-claims-backend
+  type: nodejs
+  path: .
+  requires:
   - name: claims-db
-    type: com.sap.xs.hana-securestore
+  provides:
+  - name: backend-service
+    public: true
+- name: intelligent-claims-engine-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: intelligent-claims-engine-repo-host
     parameters:
-      service: hana
-      service-plan: hdi-shared
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - comcompanyclaimsdashboard.zip
+      name: comcompanyclaimsdashboard
+      target-path: resources/
+- name: comcompanyclaimsdashboard
+  type: html5
+  path: app/claimsdashboard
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: claims-db
+  type: com.sap.xs.hana-securestore
+  parameters:
+    service: hana
+    service-plan: hdi-shared
+- name: intelligent-claims-engine-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: intelligent-claims-engine-html5-service
+    service-plan: app-host
+- name: intelligent-claims-engine-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: false
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: intelligent-claims-engine-destination-service
+    service-plan: lite
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
