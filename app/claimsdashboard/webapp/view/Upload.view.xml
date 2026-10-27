@@ -1,0 +1,20 @@
+<mvc:View
+    id="UploadView"
+    controllerName="com.company.claimsdashboard.controller.Upload"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page id="uploadPage" title="Upload Claim Document" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <VBox id="uploadForm" class="sapUiMediumMargin">
+                <Label id="claimIdLabel" text="Claim ID" labelFor="claimIdInput"/>
+                <Input id="claimIdInput" placeholder="Paste claim ID here" width="30rem"/>
+                <Label id="documentLabel" text="Document" class="sapUiSmallMarginTop"/>
+                <HBox id="fileRow">
+                    <Button id="chooseFileButton" text="Choose File" press="onChooseFile" class="sapUiTinyMarginEnd"/>
+                    <Text id="fileNameText" text="No file selected" class="sapUiSmallMarginTop"/>
+                </HBox>
+                <Button id="uploadButton" text="Upload" type="Emphasized" press="onUpload" class="sapUiMediumMarginTop"/>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

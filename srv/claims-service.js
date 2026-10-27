@@ -42,6 +42,7 @@ module.exports = cds.service.impl(async (srv) => {
     return claim;
   });
 
+ 
   // Read Claims
   srv.on('READ', 'Claims', async (req) => {
     return await db.run(req.query);

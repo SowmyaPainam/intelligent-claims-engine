@@ -92,6 +92,11 @@
           "pattern": "Claims({key}):?query:",
           "name": "ClaimsObjectPage",
           "target": "ClaimsObjectPage"
+        },
+        {
+          "pattern": "upload",
+          "name": "Upload",
+          "target": "Upload"
         }
       ],
       "targets": {
@@ -111,15 +116,15 @@
                 }
               },
               "controlConfiguration": {
-  "@com.sap.vocabularies.UI.v1.LineItem": {
-    "tableSettings": {
-      "type": "ResponsiveTable",
-      "creationMode": {
-        "name": "NewPage"
-      }
-    }
-  }
-}
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable",
+                    "creationMode": {
+                      "name": "NewPage"
+                    }
+                  }
+                }
+              }
             }
           }
         },
@@ -133,6 +138,11 @@
               "contextPath": "/Claims"
             }
           }
+        },
+        "Upload": {
+          "type": "View",
+          "id": "Upload",
+          "name": "com.company.claimsdashboard.view.Upload"
         }
       }
     }

@@ -10,24 +10,29 @@
     "test": "jest",
     "watch-claimsdashboard": "cds watch --open com.company.claimsdashboard/index.html?sap-ui-xx-viewCache=false --livereload false",
     "undeploy": "cf undeploy intelligent-claims-engine --delete-services --delete-service-keys --delete-service-brokers",
-    "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
+    "watch-approvalqueue": "cds watch --open approvalqueue/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-budgetstatus": "cds watch --open budgetstatus/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-auditviewer": "cds watch --open auditviewer/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "dependencies": {
-    "@sap/cds": "^7.0.0",
+    "@sap/cds": "^10.1.0",
     "axios": "^1.4.0",
     "dotenv": "^16.0.0",
     "express": "^4.18.0",
+    "multer": "^2.4.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@sap/cds-dk": "^8.9.19",
+    "@cap-js/sqlite": "^3.1.1",
+    "@sap/cds-dk": "^10.1.0",
+    "cds-plugin-ui5": "^0.17.0",
     "chai": "^4.3.0",
     "jest": "^29.0.0",
+    "mbt": "^1.2.49",
     "mocha": "^10.0.0",
-    "sqlite3": "^6.0.1",
-    "cds-plugin-ui5": "^0.17.0",
     "rimraf": "^5.0.5",
-    "mbt": "^1.2.49"
+    "sqlite3": "^6.0.1"
   },
   "engines": {
     "node": ">=16.0.0"
@@ -36,6 +41,20 @@
     "app/*"
   ],
   "sapux": [
-    "app/claimsdashboard"
-  ]
+    "app/claimsdashboard",
+    "app/approvalqueue",
+    "app/budgetstatus",
+    "app/budgetstatus",
+    "app/auditviewer"
+  ],
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "url": ":memory:"
+        }
+      }
+    }
+  }
 }
