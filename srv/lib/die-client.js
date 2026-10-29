@@ -113,4 +113,4 @@ async function extract({ buffer, fileName, mimeType }) {
   return { fields, processingTimeMs: Date.now() - start };
 }
 
-module.exports = { extract, isConfigured };
+module.exports = { extract, isConfigured, mapInvoiceExtractionToClaimFields };

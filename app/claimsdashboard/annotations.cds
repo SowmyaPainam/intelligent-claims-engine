@@ -106,10 +106,10 @@ annotate service.Claims with @(
         },
     ],
     UI.Identification : [
-        {
-            $Type : 'UI.DataFieldForAction',
-            Action : 'ClaimsService.EntityContainer/ProcessClaim',
-            Label : 'Process Claim',
-        },
+       {
+    $Type : 'UI.DataFieldForAction',
+    Action : 'ClaimsService.EntityContainer/ProcessClaim',
+    Label : 'Process Claim',
+},
     ],
 );

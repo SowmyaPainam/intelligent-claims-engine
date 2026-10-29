@@ -1,7 +1,7 @@
 using { intelligent.claims as my } from '../db/schema';
 
 service ClaimsService @(path: '/claims') {
- entity Claims    as projection on my.Claims;
+  entity Claims    as projection on my.Claims;
   entity Budgets   as projection on my.Budgets;
   entity Approvals as projection on my.Approvals;
   entity AuditLog  as projection on my.AuditLog;

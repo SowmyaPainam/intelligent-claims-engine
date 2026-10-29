@@ -32,6 +32,7 @@ cds.on('bootstrap', (app) => {
       const entities = cds.entities('intelligent.claims');
       const { extract } = require('./lib/die-client');
       const { persistExtraction } = require('./lib/document-persistence');
+      const { processClaim } = require('./lib/claim-processor');
 
       const { fields, processingTimeMs } = await extract({
         buffer: req.file.buffer,
@@ -48,8 +49,7 @@ cds.on('bootstrap', (app) => {
         actor
       });
 
-      const claimsSrv = await cds.connect.to('ClaimsService');
-      const decision = await claimsSrv.send('ProcessClaim', { claimId });
+      const decision = await processClaim(db, entities, claimId, actor);
 
       let approvalWorkflow = null;
       if (decision.decision === 'ESCALATE') {

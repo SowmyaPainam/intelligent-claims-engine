@@ -66,7 +66,7 @@ module.exports = cds.service.impl(async (srv) => {
     };
   });
 
-    // Submit Approval Decision
+  // Submit Approval Decision
   srv.on('SubmitApprovalDecision', async (req) => {
     const { approvalId, claimId, level, decision, comments } = req.data;
 
@@ -142,62 +142,6 @@ module.exports = cds.service.impl(async (srv) => {
       message: 'Approval decision recorded'
     };
   });
-  // Submit Approval Decision
-  // srv.on('SubmitApprovalDecision', async (req) => {
-  //   const { approvalId, claimId, level, decision, comments } = req.data;
-
-  //   console.log(`📝 Submitting approval for claim ${claimId}, level ${level}: ${decision}`);
-
-  //   await db.run(
-  //     UPDATE(Approvals, approvalId).set({
-  //       decision: decision,
-  //       comments: comments,
-  //       decisionAt: new Date().toISOString(),
-  //       decisionBy: req.user.id
-  //     })
-  //   );
-
-  //   const currentApproval = await db.run(
-  //     SELECT.one.from(Approvals, approvalId)
-  //   );
-
-  //   // if (decision === 'APPROVED' && currentApproval.level < 3) {
-  //   //   const nextLevel = currentApproval.level + 1;
-  //   //   const levelNames = ['SUPPORT_LEAD', 'FINANCE_MANAGER', 'DIRECTOR'];
-
-  //   //   await db.run(
-  //   //     INSERT.into(Approvals).entries([{
-  //   //       ID: uuid(),
-  //   //       claimID: claimId,
-  //   //       level: nextLevel,
-  //   //       levelName: levelNames[nextLevel - 1],
-  //   //       decision: 'PENDING'
-  //   //     }])
-  //   //   );
-
-  //   //   console.log(`✅ Next approval level created: ${levelNames[nextLevel - 1]}`);
-  //   // }
-
-  //   await db.run(
-  //     INSERT.into(AuditLog).entries([{
-  //       ID: uuid(),
-  //       claimID: claimId,
-  //       action: decision === 'APPROVED' ? 'APPROVED' : 'REJECTED',
-  //       actor: req.user.id,
-  //       details: JSON.stringify({ level, decision, comments }),
-  //       timestamp: new Date().toISOString(),
-  //       status: 'SUCCESS'
-  //     }])
-  //   );
-
-  //   return {
-  //     approvalId,
-  //     claimId,
-  //     level,
-  //     decision,
-  //     message: 'Approval decision recorded'
-  //   };
-  // });
 
   // Get Approval Status
   srv.on('GetApprovalStatus', async (req) => {

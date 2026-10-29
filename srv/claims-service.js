@@ -4,7 +4,7 @@ const cds = require('@sap/cds');
 const { v4: uuid } = require('uuid');
 const Validators = require('./lib/validators');
 const Helpers = require('./lib/helpers');
-const DecisionEngine = require('./lib/decision-engine');
+const { processClaim } = require('./lib/claim-processor');
 
 module.exports = cds.service.impl(async (srv) => {
   const db = await cds.connect.to('db');
@@ -42,7 +42,6 @@ module.exports = cds.service.impl(async (srv) => {
     return claim;
   });
 
- 
   // Read Claims
   srv.on('READ', 'Claims', async (req) => {
     return await db.run(req.query);
@@ -72,54 +71,15 @@ module.exports = cds.service.impl(async (srv) => {
   // Process Claim
   srv.on('ProcessClaim', async (req) => {
     const { claimId } = req.data;
-
     console.log('🔄 Processing claim:', claimId);
 
-    const claim = await db.run(SELECT.one.from(Claims, claimId));
-    if (!claim) {
-      return req.error(404, 'Claim not found');
+    try {
+      const decision = await processClaim(db, { Claims, Budgets, AuditLog }, claimId, req.user.id);
+      console.log('⚡ Decision:', decision.decision);
+      return { claimId, ...decision };
+    } catch (err) {
+      return req.error(404, err.message);
     }
-
-    const budget = await db.run(
-      SELECT.one.from(Budgets).where({ department: 'Claims' })
-    );
-
-    if (!budget) {
-      return req.error(404, 'Budget not found');
-    }
-
-    const decision = DecisionEngine.makeDecision(claim, budget);
-
-    console.log('⚡ Decision:', decision.decision);
-
-    await db.run(
-      UPDATE(Claims, claimId).set({
-        status: decision.decision === 'AUTO_APPROVE' ? 'AUTO_APPROVED' : 'ESCALATED',
-        decisionReason: decision.reason,
-        decisionTime: new Date().toISOString(),
-        processedBy: req.user.id
-      })
-    );
-
-    await db.run(
-      INSERT.into(AuditLog).entries([{
-        ID: uuid(),
-        claimID: claimId,
-        action: 'DECISION_MADE',
-        actor: req.user.id,
-        details: JSON.stringify(decision),
-        timestamp: new Date().toISOString(),
-        status: 'SUCCESS'
-      }])
-    );
-
-    return {
-      claimId,
-      decision: decision.decision,
-      reason: decision.reason,
-      processingTime: decision.processingTime,
-      riskLevel: decision.riskLevel
-    };
   });
 
   // Get Claim Status

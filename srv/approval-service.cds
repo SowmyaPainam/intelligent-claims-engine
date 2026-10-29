@@ -18,6 +18,14 @@ service ApprovalService @(path: '/approval') {
     };
   };
 
+  action SubmitApprovalDecision(approvalId: UUID, claimId: UUID, level: Integer, decision: String, comments: String) returns {
+    approvalId : UUID;
+    claimId    : UUID;
+    level      : Integer;
+    decision   : String;
+    message    : String;
+  };
+
   function GetApprovalTasks(userId: String, level: Integer) returns {
     userId     : String;
     level      : Integer;
@@ -29,14 +37,6 @@ service ApprovalService @(path: '/approval') {
       levelName : String;
       decision  : String;
     };
-  };
-
-  action SubmitApprovalDecision(approvalId: UUID, claimId: UUID, level: Integer, decision: String, comments: String) returns {
-    approvalId : UUID;
-    claimId    : UUID;
-    level      : Integer;
-    decision   : String;
-    message    : String;
   };
 
   function GetApprovalStatus(claimId: UUID) returns {

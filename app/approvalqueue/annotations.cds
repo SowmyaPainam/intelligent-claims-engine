@@ -77,10 +77,9 @@ annotate service.Approvals with @(
     ],
     UI.Identification : [
         {
-            $Type : 'UI.DataFieldForAction',
-            Action : 'ApprovalService.EntityContainer/SubmitApprovalDecision',
-            Label : 'Submit Decision',
-        },
+    $Type : 'UI.DataFieldForAction',
+    Action : 'ApprovalService.EntityContainer/SubmitApprovalDecision',
+    Label : 'Submit Decision',
+},
     ],
 );
-
