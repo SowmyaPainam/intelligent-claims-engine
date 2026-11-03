@@ -107,8 +107,8 @@ module.exports = cds.service.impl(async (srv) => {
         );
 
         if (budget) {
-          const newUsedBudget = budget.usedBudget + claim.claimAmount;
-          const newRemainingBudget = budget.totalBudget - newUsedBudget;
+  const newUsedBudget = Number(budget.usedBudget) + Number(claim.claimAmount);
+  const newRemainingBudget = Number(budget.totalBudget) - newUsedBudget;
 
           await db.run(
             UPDATE(Budgets, budget.ID).set({
