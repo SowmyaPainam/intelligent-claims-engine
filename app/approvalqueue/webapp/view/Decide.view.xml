@@ -1,0 +1,50 @@
+<mvc:View
+    controllerName="approvalqueue.controller.Decide"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns="sap.m">
+    <Page title="Submit Approval Decision" showNavButton="true" navButtonPress="onNavBack">
+        <content>
+            <VBox class="sapUiMediumMargin">
+                <Label text="Approval ID" labelFor="approvalIdInput"/>
+                <HBox>
+                    <Input id="approvalIdInput" width="25rem" placeholder="Paste approval ID here"/>
+                    <Button text="Load" type="Emphasized" press="onLoad" class="sapUiTinyMarginBegin"/>
+                </HBox>
+
+                <Panel headerText="Claim Details" class="sapUiMediumMarginTop" visible="{decideModel>/loaded}">
+                    <f:SimpleForm layout="ResponsiveGridLayout" editable="false">
+                        <Label text="Claim ID"/>
+                        <Text text="{decideModel>/claimId}"/>
+                        <Label text="Customer"/>
+                        <Text text="{decideModel>/customerName}"/>
+                        <Label text="Amount"/>
+                        <Text text="{decideModel>/claimAmount} {decideModel>/currency}"/>
+                        <Label text="Product"/>
+                        <Text text="{decideModel>/productId}"/>
+                        <Label text="Issue"/>
+                        <Text text="{decideModel>/issueDescription}"/>
+                        <Label text="Approval Level"/>
+                        <Text text="{decideModel>/level} - {decideModel>/levelName}"/>
+                        <Label text="Assigned To"/>
+                        <Text text="{decideModel>/assignedTo}"/>
+                    </f:SimpleForm>
+                </Panel>
+
+                <VBox class="sapUiMediumMarginTop" visible="{decideModel>/loaded}">
+                    <Label text="Decision"/>
+                    <Select id="decisionSelect" selectedKey="APPROVED">
+                        <core:Item key="APPROVED" text="Approve"/>
+                        <core:Item key="REJECTED" text="Reject"/>
+                    </Select>
+
+                    <Label text="Comments" class="sapUiTinyMarginTop"/>
+                    <TextArea id="commentsInput" rows="3" width="100%"/>
+
+                    <Button text="Submit Decision" type="Emphasized" press="onSubmit" class="sapUiMediumMarginTop"/>
+                </VBox>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

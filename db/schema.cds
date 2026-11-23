@@ -56,6 +56,7 @@ entity Claims : cuid, managed {
 // Approvals Table
 entity Approvals : cuid, managed {
   claimID: UUID;
+  claim: Association to Claims on claim.ID = claimID;
   level: Integer;
   levelName: String enum {
     SUPPORT_LEAD;

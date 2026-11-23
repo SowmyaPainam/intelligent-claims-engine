@@ -22,14 +22,21 @@ module.exports = cds.service.impl(async (srv) => {
 
     const numLevels = levels[riskLevel] || 1;
     const levelNames = ['SUPPORT_LEAD', 'FINANCE_MANAGER', 'DIRECTOR'];
+    const levelAssignees = {
+      SUPPORT_LEAD: 'Support Lead',
+      FINANCE_MANAGER: 'Finance Manager',
+      DIRECTOR: 'Director'
+    };
 
     const approvals = [];
     for (let i = 1; i <= numLevels; i++) {
+      const levelName = levelNames[i - 1];
       approvals.push({
         ID: uuid(),
         claimID: claimId,
         level: i,
-        levelName: levelNames[i - 1],
+        levelName,
+        assignedTo: levelAssignees[levelName],
         decision: 'PENDING'
       });
     }

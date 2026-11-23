@@ -92,6 +92,11 @@
           "pattern": "Approvals({key}):?query:",
           "name": "ApprovalsObjectPage",
           "target": "ApprovalsObjectPage"
+        },
+        {
+          "pattern": "decide",
+          "name": "Decide",
+          "target": "Decide"
         }
       ],
       "targets": {
@@ -130,6 +135,11 @@
               "contextPath": "/Approvals"
             }
           }
+        },
+        "Decide": {
+          "type": "View",
+          "id": "Decide",
+          "name": "approvalqueue.view.Decide"
         }
       }
     }
